@@ -1,4 +1,4 @@
-# 🛒 Exclusive E-Commerce — Backend API
+# 🛒 E-Commerce — Backend API
 
 > REST API كامل لمتجر إلكتروني مبني بـ Node.js + Express + MongoDB مع Google OAuth و JWT Authentication
 
@@ -55,34 +55,36 @@ back/
 
 ## ⚙️ التقنيات المستخدمة
 
-| التقنية | الاستخدام |
-|---------|-----------|
-| **Node.js** | بيئة تشغيل الـ JavaScript على السيرفر |
-| **Express.js v5** | Framework لبناء الـ REST API |
-| **MongoDB** | قاعدة البيانات NoSQL |
-| **Mongoose** | ODM للتعامل مع MongoDB |
-| **JWT (jsonwebtoken)** | توليد والتحقق من الـ Tokens |
-| **bcrypt** | تشفير كلمات المرور |
-| **Passport.js** | إدارة الـ Authentication Strategies |
-| **passport-google-oauth20** | تسجيل الدخول بحساب Google |
-| **Multer** | رفع الصور والملفات |
-| **Joi** | Validation بيانات الـ Request |
-| **CORS** | السماح للفرونت بالتواصل مع الباك |
-| **Morgan** | Logging الـ HTTP Requests |
-| **dotenv** | إدارة المتغيرات البيئية |
-| **swagger-ui-express** | عرض الـ API Documentation |
-| **swagger-jsdoc** | توليد الـ Swagger Spec |
+| التقنية                     | الاستخدام                             |
+| --------------------------- | ------------------------------------- |
+| **Node.js**                 | بيئة تشغيل الـ JavaScript على السيرفر |
+| **Express.js v5**           | Framework لبناء الـ REST API          |
+| **MongoDB**                 | قاعدة البيانات NoSQL                  |
+| **Mongoose**                | ODM للتعامل مع MongoDB                |
+| **JWT (jsonwebtoken)**      | توليد والتحقق من الـ Tokens           |
+| **bcrypt**                  | تشفير كلمات المرور                    |
+| **Passport.js**             | إدارة الـ Authentication Strategies   |
+| **passport-google-oauth20** | تسجيل الدخول بحساب Google             |
+| **Multer**                  | رفع الصور والملفات                    |
+| **Joi**                     | Validation بيانات الـ Request         |
+| **CORS**                    | السماح للفرونت بالتواصل مع الباك      |
+| **Morgan**                  | Logging الـ HTTP Requests             |
+| **dotenv**                  | إدارة المتغيرات البيئية               |
+| **swagger-ui-express**      | عرض الـ API Documentation             |
+| **swagger-jsdoc**           | توليد الـ Swagger Spec                |
 
 ---
 
 ## 🚀 طريقة التشغيل
 
 ### 1. تثبيت الـ Dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. إعداد ملف `.env`
+
 ```env
 PORT=5000
 DB_URL=mongodb://127.0.0.1:27017/Ecommerce
@@ -92,6 +94,7 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
 ### 3. تشغيل السيرفر
+
 ```bash
 # Development
 npm run dev
@@ -101,6 +104,7 @@ node server.js
 ```
 
 ### 4. فتح الـ API Docs
+
 ```
 http://localhost:5000/api-docs
 ```
@@ -110,12 +114,14 @@ http://localhost:5000/api-docs
 ## 🔐 نظام الـ Authentication
 
 ### العادي (Email & Password)
+
 ```
 POST /auth/register  →  تسجيل حساب جديد
 POST /auth/login     →  تسجيل دخول وإرجاع JWT Token
 ```
 
 **الـ Flow:**
+
 1. المستخدم بيبعت name + email + password
 2. السيرفر بيتحقق إن الإيميل مش موجود
 3. بيعمل hash للباسورد بـ bcrypt (10 rounds)
@@ -123,12 +129,14 @@ POST /auth/login     →  تسجيل دخول وإرجاع JWT Token
 5. عند الـ Login بيرجع JWT Token صالح لمدة 1 يوم
 
 ### Google OAuth 2.0
+
 ```
 GET /auth/google           →  بيعمل Redirect لـ Google
 GET /auth/google/callback  →  Google بيرجع هنا بعد الموافقة
 ```
 
 **الـ Flow:**
+
 1. المستخدم بيضغط "Sign in with Google"
 2. بيتحول لصفحة Google OAuth
 3. بعد الموافقة Google بيبعت الـ profile للـ callback
@@ -138,7 +146,9 @@ GET /auth/google/callback  →  Google بيرجع هنا بعد الموافقة
 7. بيولد JWT Token ويعمل Redirect للفرونت مع الـ Token في الـ URL
 
 ### حماية الـ Routes
+
 كل route محتاج تسجيل دخول لازم يبعت الـ Token في الـ Header:
+
 ```
 Authorization: Bearer <token>
 ```
@@ -229,62 +239,70 @@ Authorization: Bearer <token>
 ## 🗺️ API Endpoints الكاملة
 
 ### 🔐 Auth
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/auth/register` | ❌ | تسجيل حساب جديد |
-| POST | `/auth/login` | ❌ | تسجيل دخول |
-| GET | `/auth/google` | ❌ | بدء Google OAuth |
-| GET | `/auth/google/callback` | ❌ | Callback بعد Google |
-| GET | `/auth/profile` | ✅ User | جلب بيانات المستخدم |
-| PUT | `/auth/profile` | ✅ User | تحديث البيانات والعنوان والباسورد |
+
+| Method | Endpoint                | Auth    | Description                       |
+| ------ | ----------------------- | ------- | --------------------------------- |
+| POST   | `/auth/register`        | ❌      | تسجيل حساب جديد                   |
+| POST   | `/auth/login`           | ❌      | تسجيل دخول                        |
+| GET    | `/auth/google`          | ❌      | بدء Google OAuth                  |
+| GET    | `/auth/google/callback` | ❌      | Callback بعد Google               |
+| GET    | `/auth/profile`         | ✅ User | جلب بيانات المستخدم               |
+| PUT    | `/auth/profile`         | ✅ User | تحديث البيانات والعنوان والباسورد |
 
 ### 📂 Categories
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/categories` | ❌ | جلب كل الكاتيجوريز |
-| GET | `/categories/:id` | ❌ | جلب كاتيجوري بالـ ID |
-| POST | `/categories` | ✅ Admin | إنشاء كاتيجوري جديدة + صورة |
-| PUT | `/categories/:id` | ✅ Admin | تحديث كاتيجوري + صورة |
-| DELETE | `/categories/:id` | ✅ Admin | حذف كاتيجوري + صورتها |
+
+| Method | Endpoint          | Auth     | Description                 |
+| ------ | ----------------- | -------- | --------------------------- |
+| GET    | `/categories`     | ❌       | جلب كل الكاتيجوريز          |
+| GET    | `/categories/:id` | ❌       | جلب كاتيجوري بالـ ID        |
+| POST   | `/categories`     | ✅ Admin | إنشاء كاتيجوري جديدة + صورة |
+| PUT    | `/categories/:id` | ✅ Admin | تحديث كاتيجوري + صورة       |
+| DELETE | `/categories/:id` | ✅ Admin | حذف كاتيجوري + صورتها       |
 
 ### 🛍️ Products
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/products` | ❌ | جلب كل المنتجات |
-| GET | `/products/:id` | ❌ | جلب منتج بالـ ID |
-| POST | `/products` | ✅ Admin | إنشاء منتج جديد + صورة |
-| PUT | `/products/:id` | ✅ Admin | تحديث منتج + صورة |
-| DELETE | `/products/:id` | ✅ Admin | حذف منتج |
+
+| Method | Endpoint        | Auth     | Description            |
+| ------ | --------------- | -------- | ---------------------- |
+| GET    | `/products`     | ❌       | جلب كل المنتجات        |
+| GET    | `/products/:id` | ❌       | جلب منتج بالـ ID       |
+| POST   | `/products`     | ✅ Admin | إنشاء منتج جديد + صورة |
+| PUT    | `/products/:id` | ✅ Admin | تحديث منتج + صورة      |
+| DELETE | `/products/:id` | ✅ Admin | حذف منتج               |
 
 ### 🧾 Orders
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/orders` | ✅ User | إنشاء أوردر جديد |
-| GET | `/orders` | ✅ User | جلب كل أوردرات المستخدم |
-| PATCH | `/orders/:id/cancel` | ✅ User | إلغاء أوردر (pending فقط) |
+
+| Method | Endpoint             | Auth    | Description               |
+| ------ | -------------------- | ------- | ------------------------- |
+| POST   | `/orders`            | ✅ User | إنشاء أوردر جديد          |
+| GET    | `/orders`            | ✅ User | جلب كل أوردرات المستخدم   |
+| PATCH  | `/orders/:id/cancel` | ✅ User | إلغاء أوردر (pending فقط) |
 
 ---
 
 ## 🛡️ Middleware
 
 ### auth.middleware.js
+
 - بيتحقق من وجود الـ `Authorization: Bearer <token>` في الـ Header
 - بيعمل verify للـ JWT Token
 - لو صح بيحط بيانات المستخدم في `req.user` ويكمل
 - لو غلط بيرجع `401 Unauthorized`
 
 ### role.middleware.js
+
 - بيتحقق إن `req.user.role === "admin"`
 - بيتستخدم بعد الـ auth middleware
 - لو مش admin بيرجع `403 Forbidden`
 
 ### upload.js (Multer)
+
 - بيحفظ الصور في مجلد `src/uploads/`
 - اسم الملف: `timestamp-originalname` (مثال: `1773586922226-dress.jpg`)
-- بيقبل صور بس (image/*)
+- بيقبل صور بس (image/\*)
 - لو ملف مش صورة بيرجع error
 
 ### validate.middleware.js
+
 - بياخد Joi Schema ويعمل validate على `req.body`
 - لو في error بيرجع `400` مع رسالة الـ validation
 - بيتستخدم في Register والـ Category والـ Product
@@ -294,11 +312,13 @@ Authorization: Bearer <token>
 ## 📸 رفع الصور
 
 الصور بتتحفظ في `src/uploads/` وبتتعرض على:
+
 ```
 http://localhost:5000/uploads/اسم-الصورة
 ```
 
 مثال:
+
 ```
 http://localhost:5000/uploads/1773586922226-Women-Summer-Dress.jpg
 ```
@@ -313,23 +333,25 @@ pending → processing → delivered
 cancelled (يمكن الإلغاء من pending فقط)
 ```
 
-| Status | اللون في الفرونت | المعنى |
-|--------|-----------------|--------|
-| pending | 🟡 Yellow | الأوردر اتسجل وبينتظر |
-| processing | 🔵 Blue | جاري التجهيز |
-| delivered | 🟢 Green | وصل للعميل |
-| cancelled | 🔴 Red | اتلغى |
+| Status     | اللون في الفرونت | المعنى                |
+| ---------- | ---------------- | --------------------- |
+| pending    | 🟡 Yellow        | الأوردر اتسجل وبينتظر |
+| processing | 🔵 Blue          | جاري التجهيز          |
+| delivered  | 🟢 Green         | وصل للعميل            |
+| cancelled  | 🔴 Red           | اتلغى                 |
 
 ---
 
 ## 📖 API Documentation (Swagger)
 
 بعد تشغيل السيرفر افتح:
+
 ```
 http://localhost:5000/api-docs
 ```
 
 **مميزات الـ Swagger:**
+
 - تقدر تتست كل الـ endpoints مباشرة من المتصفح
 - فيه examples جاهزة لكل request
 - تقدر تعمل Authorize بالـ JWT Token وكل الـ protected routes هتشتغل
@@ -337,6 +359,7 @@ http://localhost:5000/api-docs
 - الـ Authorization بتتحفظ من غير ما تكتبها كل مرة
 
 **طريقة الـ Authorization في Swagger:**
+
 1. اعمل Login من `/auth/login`
 2. انسخ الـ `token` من الـ Response
 3. اضغط زرار **Authorize** في أعلى الصفحة
@@ -348,6 +371,7 @@ http://localhost:5000/api-docs
 ## 🌐 CORS
 
 السيرفر بيقبل requests من:
+
 - `http://localhost:3000`
 - `http://localhost:5173` (Vite dev server)
 - `https://front-e-commerce-v2.vercel.app` (Production)
@@ -394,4 +418,14 @@ http://localhost:5000/api-docs
 
 ---
 
-## 👨‍💻 Made by Digilians Team
+## 👨‍💻 Made by Digilians
+
+### 🚀 Digilians Project
+
+👤 **Rabea Shaban**  
+💼 Frontend Developer (React.js | Next.js | TypeScript)
+
+📧 Email: [rabea.elzayate@gmail.com](mailto:rabea.elzayate@gmail.com)  
+🌐 Portfolio: [rabea-shaban.com](https://rabea-shaban.com)  
+💻 GitHub: [github.com/rabea-shaban](https://github.com/rabea-shaban)  
+🔗 LinkedIn: [linkedin.com/in/rabea-sh-elzayat](https://linkedin.com/in/rabea-sh-elzayat)
