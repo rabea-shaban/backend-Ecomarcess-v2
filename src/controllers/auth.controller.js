@@ -140,7 +140,7 @@ const getProfile = async (req, res) => {
 //*=========== Update Profile User and password ===================    */
 const updateProfile = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, address } = req.body;
     const userId = req.user.id;
 
     // Find user by ID
@@ -164,6 +164,7 @@ const updateProfile = async (req, res) => {
     // Update user fields
     if (name) user.name = name;
     if (email) user.email = email;
+    if (address !== undefined) user.address = address;
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
       user.password = hashedPassword;
@@ -179,6 +180,7 @@ const updateProfile = async (req, res) => {
         name: updatedUser.name,
         email: updatedUser.email,
         role: updatedUser.role,
+        address: updatedUser.address,
       },
     });
   } catch (error) {

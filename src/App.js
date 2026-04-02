@@ -4,8 +4,11 @@ const morgan = require("morgan");
 const categoryRoutes = require("./routes/category.routes");
 const productRoutes = require("./routes/product.routes");
 const authRoutes = require("./routes/auth.routes");
+const orderRoutes = require("./routes/order.routes");
 const app = express();
 const path = require("path");
+const passport = require("./config/passport");
+const setupSwagger = require("./config/swagger");
 
 // Middlewares
 
@@ -19,12 +22,14 @@ app.use(
     credentials: true,
   }),
 );
+
+
 app.use(morgan("dev"));
 app.use(express.json());
 
 // Static files
 app.use("/uploads", express.static("src/uploads"));
-
+app.use(passport.initialize());
 //* Router
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
@@ -32,5 +37,8 @@ app.get("/", (req, res) => {
 app.use("/categories", categoryRoutes);
 app.use("/products", productRoutes);
 app.use("/auth", authRoutes);
+app.use("/orders", orderRoutes);
+
+setupSwagger(app);
 
 module.exports = app;
